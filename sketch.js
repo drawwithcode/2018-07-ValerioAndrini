@@ -2,7 +2,7 @@ var mic;
 var happyMonster;
 var angryMonster;
 var monster;
-var posX = 100;
+var posX = 90;
 var posY = 700;
 var morto = false;
 
@@ -16,25 +16,20 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
   mic = new p5.AudioIn();
   mic.start();
 }
 
 function draw() {
   background('SLATEGREY');
-
   imageMode(CENTER);
   // Get the overall volume (between 0 and 1.0)
   var vol = mic.getLevel();
+  // text(vol, 50, 100);
 
-
-  text(vol, 50, 100);
-
-  if (vol < 0.1 && morto == false) {
+  if (vol < 0.05 && morto == false) {
     monster = image(happyMonster, width / 2, height / 2, image.width, image.height);
-
-  } else if (vol > 0.1 && vol < 0.4 && morto == false) {
+  } else if (vol > 0.05 && vol < 0.35 && morto == false) {
     monster = image(happyMonster, width / 2, height / 2, image.width, image.height);
     posX += vol * 50;
   } else {
@@ -46,7 +41,7 @@ function draw() {
     pop();
     morte();
   }
-  if (posX > 1200) {
+  if (posX > width - 100) {
     vittoria();
   }
 
@@ -55,7 +50,7 @@ function draw() {
   push();
   textSize(22);
   textAlign(CENTER);
-  text("Escape from the monster, but don't get noticed!", width / 6 * 3, 150);
+  text("Escape from the monster, but don't get noticed!", width / 6 * 3, 90);
   pop();
 }
 
@@ -71,5 +66,4 @@ function vittoria() {
   textAlign(CENTER);
   text("You WON, congrats you escaped the monster!", width / 6 * 3, height / 6 * 5);
   pop();
-  //text('you won', width / 2, height / 4 * 3);
 }
